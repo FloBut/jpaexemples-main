@@ -24,7 +24,6 @@ public class UserService {
 
     }
 
-
     @Transactional
     public Tweet addTweetToUser2 (Long userId, Tweet tweet) throws Exception {
         User user = userRepository.findById(userId).orElseThrow(() -> new Exception("user not found"));
@@ -38,7 +37,6 @@ public class UserService {
         tweet.setUser(user);
         user.getTweets().add(tweet);
         return userRepository.save(user);
-
     }
 
     @Transactional
@@ -48,10 +46,10 @@ public class UserService {
     @Transactional
     public void deleteAllTweetsFromUser1(Long userId) throws Exception {
         User user = userRepository.findById(userId).orElseThrow(() -> new Exception("user not found"));
-        for (Tweet tweet: user.getTweets()){
-            tweetRepository.delete(tweet);
-        }
-        //tweetRepository.deleteAll(user.getTweets());
+//        for (Tweet tweet: user.getTweets()){
+//            tweetRepository.delete(tweet);
+//        }
+        tweetRepository.deleteAllInBatch(user.getTweets());
     }
 
     @Transactional
@@ -65,6 +63,5 @@ public class UserService {
     public void deleteUser(Long userId) throws Exception {
         User user = userRepository.findById(userId).orElseThrow(() -> new Exception("user not found"));
         userRepository.delete(user);
-
     }
 }

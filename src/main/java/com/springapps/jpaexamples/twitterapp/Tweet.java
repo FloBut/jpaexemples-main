@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
+//detine relatia in adica are cheia straina, aici se gasete chiea straina
 public class Tweet {
 
     @Id
@@ -15,12 +16,12 @@ public class Tweet {
     @Column
     private String text;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
+    @ManyToOne// realatia dinspre user spre tweet, cheia straina din tabelul Tweet
+    @JoinColumn(name = "user_id")// numele coloanei care va fi chiea straina in user
     private User user;
 
 
-    @OneToMany(mappedBy="tweet")
+    @OneToMany(mappedBy="tweet", cascade = CascadeType.ALL, orphanRemoval = true)// un tweet are o lista de comentarii si se leaga
     private List<Comment> comments;
 
     public Tweet(String text) {

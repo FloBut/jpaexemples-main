@@ -6,6 +6,8 @@ import java.util.List;
 
 @Entity
 public class User {
+    // inverse side of the relational cheia primara a user - ului se gaseste
+    // in tweet
 
     @Id
     @GeneratedValue
@@ -13,8 +15,11 @@ public class User {
 
     @Column
     private String name;
-
+//cascadeaza si la tweet ul userlui, practic la copiii user ului se va propaga update user
     @OneToMany(mappedBy="user", cascade = CascadeType.ALL, orphanRemoval = true)
+    //mapped indica numele obiectului cu care se va face legatura
+    // cascade = Cascade.Type.All -> tot ce se face pe clasa parinte se va cascada si la clasa copiilor
+    //
     private List<Tweet> tweets;
 
     public User(String name) {

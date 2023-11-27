@@ -1,5 +1,7 @@
 package com.springapps.jpaexamples.orderapp;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import jakarta.persistence.*;
 
 import java.time.LocalDate;
@@ -17,6 +19,7 @@ public class Order {
     private String productType;
 
     @Column(name = "order_date")
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private LocalDate orderDate;
 
     @Enumerated(EnumType.STRING)

@@ -5,13 +5,14 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface OrderRepository extends JpaRepository<Order,Long> {
 
      List<Order> findAllByProductType (String productType);
 
-     List<Order> findAllByOrderDateBetweenOrderByProductType(LocalDate start, LocalDate end);
+     Optional <List<Order>> findAllByOrderDateBetweenOrderByProductType(LocalDate start, LocalDate end);
 
      List<Order> findAllByOrderStatusIn(List<Status> orderStatusList);
 

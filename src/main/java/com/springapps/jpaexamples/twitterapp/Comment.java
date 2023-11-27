@@ -12,14 +12,12 @@ public class Comment {
     @Column
     private String text;
 
-    @ManyToOne
-    @JoinColumn(name="tweet_id")
+    @ManyToOne ()//pot fi mai multe  la un tweet
+    @JoinColumn(name="tweet_id")// coloana comment va avea  mai multe tweet uri
     private Tweet tweet;
 
     public Comment(String text) {
-
         this.text = text;
-
     }
 
     public Comment() {

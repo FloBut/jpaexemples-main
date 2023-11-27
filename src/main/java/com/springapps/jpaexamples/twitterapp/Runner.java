@@ -13,10 +13,14 @@ import java.time.LocalDate;
 public class Runner implements CommandLineRunner {
 
     UserService userService;
+    TweeterService tweeterService;
 
     @Autowired
-    public Runner(UserService userService) {
+    public Runner(UserService userService, TweeterService tweeterService, TweeterService tweeterService1) {
+
         this.userService = userService;
+        this.tweeterService = tweeterService;
+        this.tweeterService = tweeterService1;
     }
 
     @Override
@@ -25,6 +29,11 @@ public class Runner implements CommandLineRunner {
         userService.saveUser(user);
 
         Tweet tweet = new Tweet("bitcoin is up");
+        userService.addTweetToUser2(1l, tweet);
+
+        Tweet foundTweet = tweeterService.findByText("bitcoin is up");
+        Comment comment = new Comment("uass ss");
+        tweeterService.addCommentToTweet(foundTweet.getId(),  comment);
         userService.addTweetToUser1(1L,tweet);
         userService.deleteAllTweetsFromUser(1L);
         //userService.deleteAllTweetsFromUser2(1L);
