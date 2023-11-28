@@ -1,5 +1,7 @@
-package com.springapps.jpaexamples.shop;
+package com.springapps.jpaexamples.shop.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -7,27 +9,28 @@ import java.util.List;
 // si un id pentru fiecare categorie
 
 @Entity// indic jpa ului ca voi crea un tabel
-@Table(name = "shop")// indic numele tabelului
-public class ProductCategory {
+// indic numele tabelului
+public class Category {
     @Id// fiecare categorie are un id unic in tabel
-    @GeneratedValue// genereaza automat valoarea fiecarui id din tabel
-    @Column(name = "productCategory_id") // coloana in care voi pune valoarea id ului
+    @GeneratedValue(strategy=GenerationType.IDENTITY)// genereaza automat valoarea fiecarui id din tabel
+   // coloana in care voi pune valoarea id ului
     private Long id;// numele coloanei
 
-    @Column(name = "productCategory_type")
-    private String productCategoryType;
-    @Column(name = "description")
+    @Column
+    private String name;
+    @Column
     private String description;
     //creez mai intai constructorul gol, practic cu ajutorul lui imi voi crea un tabel gol
    //categoria are o lista de produse
-    @OneToMany(mappedBy = "productCategory")
+    @OneToMany(mappedBy = "category")
+    @JsonManagedReference("category-product")
     List<Product> productList;
 
-    public ProductCategory() {
+    public Category() {
     }
 
-    public ProductCategory(String productCategoryType, String description) {
-        this.productCategoryType = productCategoryType;
+    public Category(String name, String description) {
+        this.name = name;
         this.description = description;
     }
 
@@ -40,14 +43,14 @@ public class ProductCategory {
     }
 
 
-    public String getProductCategoryType() {
+    public String getName() {
 
-        return productCategoryType;
+        return name;
     }
 
-    public void setProductCategoryType(String productCategoryType) {
+    public void setName(String productCategoryType) {
 
-        this.productCategoryType = productCategoryType;
+        this.name = productCategoryType;
     }
 
     public String getDescription() {
@@ -71,9 +74,9 @@ public class ProductCategory {
     public String toString() {
         return "ProductCategory{" +
                 "productCategoryId=" + id +
-                ", productCategoryType='" + productCategoryType + '\'' +
+                ", productCategoryType='" + name + '\'' +
                 ", description='" + description + '\'' +
-                ", productList=" + productList +
+
                 '}';
     }
 }
