@@ -26,7 +26,6 @@ public class Tweet {
 
     public Tweet(String text) {
         this.text = text;
-
     }
 
     public Tweet() {

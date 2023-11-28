@@ -6,6 +6,8 @@ import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("shop")
 //este clasa in care voi face cererile
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 public class ProductCategoryController {
     ProductCategoryService productCategoryService;
 @Autowired
+//injectez prin constructor been - ul
     public ProductCategoryController(ProductCategoryService productCategoryService) {
         this.productCategoryService = productCategoryService;
     }
@@ -24,5 +27,12 @@ public class ProductCategoryController {
         ProductCategory newProductCategory = productCategoryService.addProductCategory(productCategory);
         return  ResponseEntity.status(HttpStatus.CREATED).body(productCategory);
     }
+    @GetMapping
+    public  ResponseEntity <List<ProductCategory>> findAll() {
+        List <ProductCategory> productCategories = productCategoryService.findAll();
+        return ResponseEntity.ok(productCategories);
+    }
+
+
 
 }
